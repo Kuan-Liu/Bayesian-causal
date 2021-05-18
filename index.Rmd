@@ -1,8 +1,8 @@
 ---
-title: "An Introduction to Xaringan"
-subtitle: "University of Toronto Theme & Template"
+title: "A Bayesian Latent Class Approach to Causal Inference with Longitudinal Data"
+subtitle: "SSC 2021"
 author: "<br>Kuan Liu, PhD(c)<br> Dalla Lana School of Public Health<br> University of Toronto"
-date: "<br>May 7, 2021"
+date: "<br>June 9, 2021"
 start: "0:0:0"
 output:
   xaringan::moon_reader:
@@ -15,89 +15,11 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-      ratio: '16:9'
+      ratio: '4:3'
       navigation:
         scroll: true # false if wish to disable scrolling by mouth and use keyboard only
 ---
 
-
-class: ut-pantone_babyblue
-
-# **Some Background**
-<!-- # **.white[white colour font if you prefer]** -->
-
-
-
----
-
-## What is Xarigan?
-
-.pull-left[
-- **Xaringan** is a R package created by [Yihui Xie](https://github.com/yihui/xaringan) to generate presentation slides in R with Rmarkdown.
-- Just like Rmarkdown, you can type latex and display R code and output in your slides
-  + It enables the use of .red[interactive plots] and .red[html widgets], 
-    + i.e., plotly, shiny apps and maps with leaflet
-- You can also code in html and css! 
-  + Simple embedding of online audio, videos, Google map etc
-  + modify the theme and style of your slides
-]
-
-.pull-right[
-- **Xaringan** was derived from Sharingan, a dōjutsu (eye technique) in the Japanese anime Naruto 
-  + that can .blue[hypnotize] and show .blue[insights] of your "enemies" (audience) `r emo::ji("wow")`
-  
-  ![](http://24.media.tumblr.com/tumblr_lnvt0vSbrw1qjqz6co1_500.gif)
-
-
-]
-
----
-
-class: ut-pantone_red
-
-# .white[**Showcase Cool Stuffs**]
-
----
-
-## Embeding Google Map
-
-> Instruction: go to google map, search for location, select share and click on **Embed a map** and copy the iframe code
-
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.468727620375!2d-79.39483388413716!3d43.6592205791212!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34c78d6c73e5%3A0x95936ca377bfc3e9!2sThe%20Dalla%20Lana%20School%20of%20Public%20Health!5e0!3m2!1sen!2sca!4v1620399822627!5m2!1sen!2sca" width= 100% height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-
-
-
----
-
-## Embeding Online Videos
-
-.pull-left[
-
-### From online MP4 files
-
-<!-- You can change controls to autoplay to adds video controls, like play, pause, and volume. -->
-
-<video width="560" height="315" controls>
-  <source src="https://insulin100.utoronto.ca/wp-content/uploads/2020/11/banting_film-loop-lab-620x420-02.mp4" type="video/mp4">
-</video>
-
-]
-
-.pull-right[
-
-### From Youtube
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/SYd-jjrUvug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-]
-
----
-
-## Embeding Dashboard Apps (yes shinyapps!)
-
-<iframe src="https://art-bd.shinyapps.io/covid19canada/" style="width: 100%; height: 500px; border-style:none"></iframe>
-
----
 
 
 class: ut-pantone_yellow
@@ -106,7 +28,7 @@ class: ut-pantone_yellow
 
 ---
 
-## Installing `r icons::ionicons("download-outline")`
+## Installing 
 
 - Install the **xaringan** package from [Github](https://github.com/yihui/xaringan):
 
@@ -125,9 +47,9 @@ devtools::install_github("yihui/xaringan")
   - `UT-Logo.svg`
 ]
 
-- These are available in the assets folder of the GitHub repository [`r icons::ionicons("logo-github")` `Kuan-Liu/xaringan_utoronto`](https://github.com/Kuan-Liu/xaringan_utoronto/assets)
 
-- You can download or fork the entire repo to start coding your own presentation! `r emo::ji("cheers")`
+
+- You can download or fork the entire repo to start coding your own presentation! 
 
 ---
 
@@ -639,19 +561,6 @@ rnorm(2)
 ]
 
 
-
----
-
-## Icons and emoji 
-
-- Install the following packages in R to enable the use of emoji and icons
-
-```
-devtools::install_github("hadley/emo")
-remotes::install_github("mitchelloharawild/icons")
-```
-
-- For more info see https://github.com/mitchelloharawild/icons and https://github.com/hadley/emo for more info
 
 ---
 

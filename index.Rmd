@@ -63,7 +63,7 @@ class: left, left
     & \times   P(U_{ij}=u_j | \bar{U}_{ij-1}=\bar{u}_{j-1},\bar{Z}_{ij-1}, \alpha_j )P(X_{ij} | U_{ij}=u_j, \beta_j) \Big] \nonumber
 \end{align}
 
-  -  $n$ subject, $k$ visits and $M$ number of latent classes
+  -  $n$ subjects, $k$ visits and $M$ number of latent classes
   -  $\alpha$, $\beta$, $\gamma$ and $\theta$ are model parameters
   -  $P(X_{ij} | U_{ij}=u_j, \beta_j) = \prod_{l=1}^{p} P( X_{ijl} | U_{ij} , \beta_{jl})$, .red[indicator model]
 

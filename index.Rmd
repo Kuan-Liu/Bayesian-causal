@@ -254,7 +254,7 @@ A 70% chance of observing a higher probability of achieving normal daily activit
     - Brian Feldman
     - Ingrid Goh
 
--  PhD research is supported by theCanadian Institutes of HealthResearch, Doctoral ResearchAward GSD-152386
+-  PhD research is supported by the Canadian Institutes of Health Research, Doctoral Research Award GSD-152386
 ]
 
 .pull-right[

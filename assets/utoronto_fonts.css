@@ -82,6 +82,7 @@ h1, h2, h3 {
 .font70 , .code70 .remark-code, .code70 .remark-inline-code{ font-size: 70%; }
 .font75 , .code75 .remark-code, .code75 .remark-inline-code{ font-size: 75%; }
 .font80 , .code80 .remark-code, .code80 .remark-inline-code{ font-size: 80%; }
+.font85 , .code85 .remark-code, .code85 .remark-inline-code{ font-size: 85%; }
 .font90 , .code90 .remark-code, .code90 .remark-inline-code{ font-size: 90%; }
 .font100, .code100 .remark-code, .code100 .remark-inline-code{ font-size: 100%; }
 .font110, .code110 .remark-code, .code110 .remark-inline-code{ font-size: 110%; }

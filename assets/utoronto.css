@@ -12,7 +12,7 @@
   padding-bottom: 32px;
   background-color: white;
   color: #002A5C; /*UT blue*/
-  font-size: 20pt;  /*smallest try 18pt, largest try 26pt*/
+  font-size: 18.5pt;  /*smallest try 18pt, largest try 26pt*/
   font-weight: 200;
   line-height: 1.2;
   border-top: 5px solid #002A5C; 
@@ -104,7 +104,7 @@ this is meant to be used for (section) title page*/
   background-size: 320px;
   background-position: 95% 100%;
   color: black;
-  text-align:center;
+  text-align: left;
   vertical-align: middle;
 }
 .ut-pantone_lime .remark-slide-number {
@@ -116,7 +116,7 @@ this is meant to be used for (section) title page*/
   background-size: 320px;
   background-position: 95% 100%;
   color: black;
-  text-align:center;
+  text-align:left;
   vertical-align: middle;
 }
 .ut-pantone_pink .remark-slide-number {

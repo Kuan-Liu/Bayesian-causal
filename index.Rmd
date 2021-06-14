@@ -1,8 +1,8 @@
 ---
 title: "A Bayesian Latent Class Approach to Causal Inference with Longitudinal Data"
-subtitle: "SSC 2021"
+subtitle: "SMAC 2021"
 author: "<br>Kuan Liu, PhD(c)<br> Dalla Lana School of Public Health<br> University of Toronto"
-date: "<br>June 9, 2021"
+date: "<br>June 15, 2021"
 start: "0:0:0"
 output:
   xaringan::moon_reader:
@@ -129,29 +129,6 @@ kbl(simtab1) %>%
 - **High quality** (H): binary indicator with a probability of 0.9 in a given class
 - **Medium quality** (M): binary indicator with a probability of 0.75 in a given class
 - **Low quality** (L): binary indicator with a probability of 0.6 in a given class]
-
----
-
-## Simulation Results (DAG2)
-***
-Simulation results for $E[Y^{(1,1)}] − E[Y^{(0,0)}]$ over 1000 replications with 500 samples and medium level latent class confounding.
-
-```{r echo=F, include=T, tidy=TRUE}
-options(knitr.kable.NA = '')
-
-simtab2<-read.csv("assets/simtab2.csv", header = T)
-colnames(simtab2)[1]<-"Indicators (H, M, L)"
-
-kbl(simtab2) %>%
-  kable_paper("striped", full_width = F) %>%
-  row_spec(c(2,6), bold=T,color = "black", background = "#DAF7A6") %>%
-  row_spec(c(4,8), color = "red", background = "white" ) %>%
-  kable_classic(full_width = T,position = "center")%>%
-  scroll_box(height = "300px")
-
-```
-
--  Good performance under misspecified outcome model
 
 ---
 

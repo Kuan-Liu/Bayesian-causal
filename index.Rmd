@@ -132,6 +132,31 @@ kbl(simtab1) %>%
 
 ---
 
+## Simulation Results (DAG2)
+***
+Simulation results for $E[Y^{(1,1)}] − E[Y^{(0,0)}]$ over 1000 replications with 500 samples and medium level latent class confounding.
+
+```{r echo=F, include=T, tidy=TRUE}
+options(knitr.kable.NA = '')
+
+simtab2<-read.csv("assets/simtab2.csv", header = T)
+colnames(simtab2)[1]<-"Indicators (H, M, L)"
+
+kbl(simtab2) %>%
+  kable_paper("striped", full_width = F) %>%
+  row_spec(c(2,6), bold=T,color = "black", background = "#DAF7A6") %>%
+  row_spec(c(4,8), color = "red", background = "white" ) %>%
+  kable_classic(full_width = T,position = "center")%>%
+  scroll_box(height = "300px")
+
+```
+
+-  Good performance under misspecified outcome model
+
+
+
+---
+
 ## Quick Summary
 ***
 

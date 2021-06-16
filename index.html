@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content=" Kuan Liu, PhD(c)  Dalla Lana School of Public Health  University of Toronto" />
     <meta name="date" content="2021-06-15" />
+    <script src="index_files/header-attrs-2.8/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <script src="index_files/kePrint-0.0.1/kePrint.js"></script>
     <link href="index_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
@@ -217,6 +218,103 @@ Simulation results for `\(E[Y^{(1,1)}] − E[Y^{(0,0)}]\)` over 1000 replication
 
 ---
 
+## Simulation Results (DAG2)
+***
+Simulation results for `\(E[Y^{(1,1)}] − E[Y^{(0,0)}]\)` over 1000 replications with 500 samples and medium level latent class confounding.
+
+&lt;div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; "&gt;&lt;table class=" lightable-paper lightable-striped lightable-classic" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", "Source Sans Pro", sans-serif; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; Indicators (H, M, L) &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; Mean &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; RB &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; ESE &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; ASE &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; CP &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; True &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.50 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; (5, 0, 0) &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 1.51 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.40 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.15 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.15 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 94.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (0, 5, 0) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.47 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 94.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: red !important;background-color: white !important;"&gt; (0, 0, 5) &lt;/td&gt;
+   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 1.44 &lt;/td&gt;
+   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; -3.91 &lt;/td&gt;
+   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.19 &lt;/td&gt;
+   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.19 &lt;/td&gt;
+   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 94.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (1, 0, 4) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.48 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.64 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 94.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; (10, 0, 0) &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 1.50 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.17 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.16 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.15 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 94.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (0, 10, 0) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 94.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: red !important;background-color: white !important;"&gt; (0, 0, 10) &lt;/td&gt;
+   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 1.48 &lt;/td&gt;
+   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; -1.44 &lt;/td&gt;
+   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.17 &lt;/td&gt;
+   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.17 &lt;/td&gt;
+   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 94.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (1, 0, 9) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.67 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 94.6 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;
+
+-  Good performance under misspecified outcome model
+
+
+
+---
+
 ## Quick Summary
 ***
 
@@ -349,6 +447,9 @@ A 70% chance of observing a higher probability of achieving normal daily activit
 &lt;!-- \draw[-&gt;, dashed] (P1) to node {$k$} (P); --&gt;
 &lt;!-- \end{tikzpicture} --&gt;
 &lt;!-- ``` --&gt;
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

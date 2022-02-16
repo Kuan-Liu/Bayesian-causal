@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>A Bayesian Latent Class Approach to Causal Inference with Longitudinal Data</title>
+    <title>Bayesian Causal Inference with Longtitudinal Data</title>
     <meta charset="utf-8" />
-    <meta name="author" content=" Kuan Liu, PhD(c)  Dalla Lana School of Public Health  University of Toronto" />
-    <meta name="date" content="2021-06-15" />
+    <meta name="author" content="PHS Faculty Meeting   Institute of Health Policy, Management and Evaluation Dalla Lana School of Public Health" />
     <script src="index_files/header-attrs-2.11/header-attrs.js"></script>
     <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <script src="index_files/kePrint-0.0.1/kePrint.js"></script>
-    <link href="index_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         TeX: { equationNumbers: { autoNumber: "AMS" } },
@@ -28,393 +25,153 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# A Bayesian Latent Class Approach to Causal Inference with Longitudinal Data
-## SMAC 2021
-### <br>Kuan Liu, PhD(c)<br> Dalla Lana School of Public Health<br> University of Toronto
-### <br>June 15, 2021
+# Bayesian Causal Inference with Longtitudinal Data
+## Kuan Liu
+### PHS Faculty Meeting <br> Institute of Health Policy, Management and Evaluation<br>Dalla Lana School of Public Health
+### <br>Feb 16, 2022
 
 ---
 
 class: left, left
 
-## Background 
-***
--  Causal inference from longitudinal data with limited sample size and a large number of time-dependent covariates is challenging
+<style>.shareagain-bar {
+--shareagain-foreground: rgb(255, 255, 255);
+--shareagain-background: rgba(0, 0, 0, 0.5);
+--shareagain-facebook: none;
+--shareagain-pinterest: none;
+--shareagain-pocket: none;
+--shareagain-reddit: none;
+}</style>
 
-&lt;!--   -  convergence --&gt;
-&lt;!--   -  over-fitting --&gt;
-&lt;!--   -  sensitive to sample and model changes --&gt;
-  
+---
+class: center, middle
+## ⭐ About me ⭐
+***
+I am an Assistant Professor in .blue[Health Services Research (outcomes and evaluation method emphasis)] at IHPME. 
+
 --
 
--  Existing Bayesian causal methods such as Bayesian MSM and Bayesian PSA are not full Bayesian
+I also hold a cross-appointment at the .blue[Division of Biostatistics].
 
--  Parametric Bayesian g-computation
-    -  requires specification of covariates distribution
-    -  can be computationally intractable
-  
 --
 
--  We proposed a Bayesian latent class approach that
-    -  features **dimension reduction of covariates**
-    -  a **full** Bayesian approach
-  
+My areas of methodological interest include .red[causal inference], .blue[Bayesian statistics], .green[longitudinal data analysis], .orange[bias analysis], and .black[semi-parametric/parametric joint modelling].
+
+--
+
+My current research focuses on .bold[.orange[Applied Bayesian statistics]] and .bold[.orange[causal inference with longitudinal data]].
+
+
+--
+
+Besides academic work and creating fun data visualizations in R 😄. I love watercolour painting 🎨, taking contemporary dance classes in TOronto 💃, and playing 'piano' 🎹.
+
 ---
 
-##  Longtiduinal DAG
+class: ut-pantone_yellow
+
+# **on Bayesian Causal Inference with Longitudinal Data**
+
+---
+
+##  Background
 ***
-![Longitudinal DAG](assets/dag.PNG)
 
-&gt; -  The indicators (previous measured covariates) are considered as manifestations from the time-dependent latent classes
--  The latent classes, not the indictors, directly affect treatment assignment and outcome
+- .bold[.blue[Longitudinal observational studies]] enable timely assessment of exposure effects and are invaluable when randomized experiments are deemed infeasible.
+
+
+- .blue[Longitudinal statistical causal inference methods] are required to gather evidence such design and data
+
+
+--
+
+- Many of the existing causal inference frameworks and methods for time-varying exposures were developed under the .bold[.orange[frequentist domain]]. 
+
+- Bayesian causal methods to handle longitudinal data have received little attention in the statistical literature 🤷
 
 ---
 
-## Proposed Bayesian Latent Class Approach
+## Are you Bayesian yet?
+
+.bold[.blue[Bayesian causal inference methods]] can be .bold[.blue[preferable]], they allow
+
+- ✅ propagation of estimation uncertainty,
+
+- ✅ provide decision-theoretic probabilistic summaries, 
+    - [many issues with P-value](https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108)
+    - interpretable posterior (predictive) probability summary
+    
+    &gt; P(extreme data | null effect) vs P(causal effect | data)
+    
+   &lt;!-- `$$P(\text{extreme data} \mid \text{null effect}) \text{ vs } P( \text{causal effect} \mid data)$$` --&gt;
+
+- ✅ easily incorporate informative priors to use past evidence and external information.
+
+---
+
+## Past Work
 ***
--  The likelihood of the observed data
 
-`\begin{align}
-   &amp; \prod_{i=1}^n \sum_{U_{ik}}^M \ldots\sum_{U_{i1}=1}^M P(Y_i | \bar{Z}_i, \bar{U}_{i} = \bar{u}_{k}, \theta) \prod_{j=1}^{k}  \Big[ P(Z_{ij} | \bar{Z}_{ij-1}, \bar{U}_{ij} = \bar{u}_{j}, \gamma_j ) \nonumber \\
-    &amp; \times   P(U_{ij}=u_j | \bar{U}_{ij-1}=\bar{u}_{j-1},\bar{Z}_{ij-1}, \alpha_j )P(X_{ij} | U_{ij}=u_j, \beta_j) \Big] \nonumber
-\end{align}`
+.bold[.blue[Repeatedly measured outcome ]]
 
-  -  `\(n\)` subjects, `\(k\)` visits and `\(M\)` number of latent classes
-  -  `\(\alpha\)`, `\(\beta\)`, `\(\gamma\)` and `\(\theta\)` are model parameters
-  -  `\(P(X_{ij} | U_{ij}=u_j, \beta_j) = \prod_{l=1}^{p} P( X_{ijl} | U_{ij} , \beta_{jl})\)`, .red[indicator model]
+- I extended .red[Bayesian propensity score analysis] and .red[Bayesian marginal structural models] to estimate a time-varying exposure with a repeatedly measured outcome. (Liu et al, 2020)
 
+- Prior to this work, no existing Bayesian causal methods could handle a repeatedly measured outcome.
 
-- Estimate `\(E[Y_i^{ \bar{a}}]\)` using &lt;span style="color: red;"&gt;Bayesian posterior predictive inference&lt;/span&gt;
+--
 
+.bold[.blue[Latent confounding classes]]
 
----
+- I developed an innovative .red[Bayesian latent class approach] to causal estimation with longitudinal data.  (Liu et al, 2022)
 
-class: ut-pantone_lime
+- This approach simplifies the specification of the time-dependent confounding distribution, and can overcome unmeasured confounding. 
 
-# Simulation Study
-.font110[
-1. Simulation data feature latent classes
-
-2. Simulation data do not feature latent classes (misspecification)
-]
 
 ---
 
-## Simulated DAGs
+##  Future Directions
+***
+
+.bold[.blue[Bayesian causal estimation with latent confounding]]
+
+![Longitudinal DAG with unmeasured confounding](assets/latent_dag.PNG)
+
+- Develop a Bayesian sensitivity analysis for longitudinal data
+- Extensions to the Bayesian latent class approach 
+
+---
+
+##  Future Directions
+***
+.bold[.blue[Bayesian causal modelling with variable selection]]
+
+- develop extensions to Bayesian variable selection techniques (Bayesian LASSO and spike-and-slab priors)
+
+.bold[.blue[Bayesian causal modelling with multiple outcomes]]
+
+- Propose a Bayesian causal joint model of **longitudinal and survival outcomes** with shared parameters to quantify the correlation between outcomes
+
+
+&gt; The **long-term goal** of my research program is .red[to improve] the use of Bayesian causal methods in the design and analysis of observational studies.
+
+---
+
+# Collaborators 🥂
 ***
 .pull-left[
+- Eleanor Pullenayegum
+- Olli Saarela
+- George Tomlinson
+- Brian Feldman 
+- Linda Hiraki
+- Deborah Levy
+- Amanda Ricciuto
+- Suzanne Cadarette 
+- Geoff Anderson
+- Aya Mitani
+- Hailey Banack
+- and more!
 
-&lt;br/&gt;&lt;br/&gt;
-&lt;br/&gt;&lt;br/&gt;
-
-&lt;img src="assets/dagsim1.PNG" alt="drawing1" width="400"/&gt;
-.font85[DAG1 with latent confounder class]
-]
-.pull-right[
-&lt;img src="assets/dagsim2.PNG" alt="drawing2" width="400"/&gt;
-.font85[DAG2 without latent confounder class for the outcome model]
-
-&lt;img src="assets/dagsim3.PNG" alt="drawing3" width="400"/&gt;
-.font85[DAG3 without latent confounder class for the outcome and treatment model]
-]
-
----
-
-## Simulation Results (DAG1)
-***
-Simulation results for `\(E[Y^{(1,1)}] − E[Y^{(0,0)}]\)` over 1000 replications with 500 samples and misspecified outcome model
-
-&lt;div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; "&gt;&lt;table class=" lightable-paper lightable-striped lightable-classic" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", "Source Sans Pro", sans-serif; margin-left: auto; margin-right: auto;'&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; Indicators (H, M, L) &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; Mean &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; RB &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; ESE &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; ASE &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; CP &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; True &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.67 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; (5, 0, 0) &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 1.67 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.18 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 94.7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; (0, 5, 0) &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 1.66 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; -0.32 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.20 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.20 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 93.9 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;color: red !important;background-color: white !important;"&gt; (0, 0, 5) &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 1.16 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; -30.24 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 15.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; (1, 0, 4) &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.75 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5.04 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.26 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.24 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 85.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; (10, 0, 0) &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 1.67 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; -0.15 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.16 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 94.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; (0, 10, 0) &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 1.67 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; -0.25 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 95.0 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;color: red !important;background-color: white !important;"&gt; (0, 0, 10) &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 1.18 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; -29.05 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.20 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 17.9 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: #FFFD33 !important;"&gt; (1, 0, 9) &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: #FFFD33 !important;"&gt; 1.63 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: #FFFD33 !important;"&gt; -2.59 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: #FFFD33 !important;"&gt; 0.19 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: #FFFD33 !important;"&gt; 0.19 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: #FFFD33 !important;"&gt; 93.5 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;&lt;/div&gt;
-
-.font85[
-- **High quality** (H): binary indicator with a probability of 0.9 in a given class
-- **Medium quality** (M): binary indicator with a probability of 0.75 in a given class
-- **Low quality** (L): binary indicator with a probability of 0.6 in a given class]
-
----
-
-## Simulation Results (DAG2)
-***
-Simulation results for `\(E[Y^{(1,1)}] − E[Y^{(0,0)}]\)` over 1000 replications with 500 samples and medium level latent class confounding.
-
-&lt;div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; "&gt;&lt;table class=" lightable-paper lightable-striped lightable-classic" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", "Source Sans Pro", sans-serif; margin-left: auto; margin-right: auto;'&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; Indicators (H, M, L) &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; Mean &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; RB &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; ESE &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; ASE &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; CP &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; True &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.50 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; (5, 0, 0) &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 1.51 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.40 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.15 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.15 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 94.3 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; (0, 5, 0) &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.47 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -2.28 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 94.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;color: red !important;background-color: white !important;"&gt; (0, 0, 5) &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 1.44 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; -3.91 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.19 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.19 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 94.6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; (1, 0, 4) &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.48 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -1.64 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 94.4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; (10, 0, 0) &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 1.50 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.16 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 0.15 &lt;/td&gt;
-   &lt;td style="text-align:right;font-weight: bold;color: black !important;background-color: #DAF7A6 !important;"&gt; 94.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; (0, 10, 0) &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.49 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -0.76 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 94.5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;color: red !important;background-color: white !important;"&gt; (0, 0, 10) &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 1.48 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; -1.44 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 0.17 &lt;/td&gt;
-   &lt;td style="text-align:right;color: red !important;background-color: white !important;"&gt; 94.1 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; (1, 0, 9) &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.49 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; -0.67 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 94.6 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;&lt;/div&gt;
-
--  Good performance under misspecified outcome model
-
-
-
----
-
-## Quick Summary
-***
-
--  Bayesian latent class approach performs well when
-    1.  data contain at least one _**high quality indicator**_
-    2.  true causal structure features _**latent classes**_
-
-
--  Bayesian latent class approach can still perform well under
-misspecification
-
--  In our simulation, we assume the number of latent classes are known
-
-
-
----
-
-## Application - The Sickkids JDM Study
-***
--  &lt;span style="color: orange;"&gt;Study objective&lt;/span&gt;: investigating the efficacy of IVIg in treating new onset JDM
-
--  &lt;span style="color: orange;"&gt;Study outcome&lt;/span&gt;: Achieving a zero Child Health Assessment
-Questionnaire (CHAQ) score at 18-month (0= Daily living
-without any difficulty, 3= Unable to perform daily activity)
-
--  &lt;span style="color: orange;"&gt;Treatment&lt;/span&gt;: exposure to IVIg within 6 months of each
-follow-up visits
-
-- &lt;span style="color: orange;"&gt;Clinical indicators&lt;/span&gt;
-  1.  present functional status (normal versus abnormal)
-  2.  currently taking prednisone (yes versus no)
-  3.  presence of Gottron’s papules
-  4.  presence of heliotrope rash
-  5.  presence of abnormal nailfold capillaries
-
-
----
-## JDM Analysis
-***
-- Average potential outcomes
-  1.  &lt;span style="color: red;"&gt;"Always treated"&lt;/span&gt;: Probability of achieving normal daily activity at 18-month among patients who were exposed to IVIG and remained on IVIG prior to the 18-month follow-up visit
-  2.  &lt;span style="color: red;"&gt;"Never treated"&lt;/span&gt;: Probability of achieving normal daily activity at 18-month among patients who were IVIG free within 18 months
-
--  We used WAIC to determine the number of latent confounder classes
-
--  Vague uniform priors
-
----
-
-## JDM Results
-***
-.left-column[
-
-&lt;br/&gt;
-
-A 70% chance of observing a higher probability of achieving normal daily activity under ’always treated’.
-&lt;span style="color: orange;"&gt;(evidence of efficacy)&lt;/span&gt;
-
-]
-
-.right-column[
-&lt;img src="assets/Rplot_posterior_jdm_feb16.jpeg" alt="post" width="550"/&gt;
-&lt;span style="color: white;"&gt;skip&lt;/span&gt; Figure 1: Posterior predictive distribution of the &lt;span style="color: white;"&gt;skip&lt;/span&gt; estimated risk difference on study outcome
-]
-
----
-
-# Future Direction
-***
- - Bayesian latent class methods for causal inference
-  -  unknown number of latent classes
-  -  more generalized causal mechanisms
-  -  frame with a continuous latent variable
-
-
-
-## Closing thoughts 🥂
-    
-- why Bayesian?
-    - Bayesian causal inference is useful in clinical research
-      - choice of prior
-      - probability summary
-      - "hidden" advantage: missing data, variable selection etc.
-- Make it robust?
-    - non-parametric Bayesian
----
-
-# Acknowledgements
-***
-.pull-left[
-- Supervisory committee
-    - Eleanor Pullenayegum
-    - Olli Saarela
-    - George Tomlinson
-    
-- JDM Sickkids research team
-    - Brian Feldman
-    - Ingrid Goh
-
--  PhD research is supported by the Canadian Institutes of Health Research, Doctoral Research Award GSD-152386
 ]
 
 .pull-right[
@@ -426,29 +183,6 @@ A 70% chance of observing a higher probability of achieving normal daily activit
 &lt;img src="assets/cihr.jpg" alt="cihr" width="300"/&gt;
 
 ]
-
-&lt;!-- --- --&gt;
-&lt;!-- ## Testing - yes I can make tikz! --&gt;
-
-&lt;!-- ```{tikz, tikz-ex, fig.cap = "Funky tikz", fig.ext = 'png', cache=TRUE, echo=FALSE} --&gt;
-&lt;!-- \usetikzlibrary{arrows} --&gt;
-&lt;!-- \begin{tikzpicture}[node distance=2cm, auto,&gt;=latex', thick, scale = 0.5] --&gt;
-&lt;!-- \node (P) {$P$}; --&gt;
-&lt;!-- \node (B) [right of=P] {$B$}; --&gt;
-&lt;!-- \node (A) [below of=P] {$A$}; --&gt;
-&lt;!-- \node (C) [below of=B] {$C$}; --&gt;
-&lt;!-- \node (P1) [node distance=1.4cm, left of=P, above of=P] {$\hat{P}$}; --&gt;
-&lt;!-- \draw[-&gt;] (P) to node {$f$} (B); --&gt;
-&lt;!-- \draw[-&gt;] (P) to node [swap] {$g$} (A); --&gt;
-&lt;!-- \draw[-&gt;] (A) to node [swap] {$f$} (C); --&gt;
-&lt;!-- \draw[-&gt;] (B) to node {$g$} (C); --&gt;
-&lt;!-- \draw[-&gt;, bend right] (P1) to node [swap] {$\hat{g}$} (A); --&gt;
-&lt;!-- \draw[-&gt;, bend left] (P1) to node {$\hat{f}$} (B); --&gt;
-&lt;!-- \draw[-&gt;, dashed] (P1) to node {$k$} (P); --&gt;
-&lt;!-- \end{tikzpicture} --&gt;
-&lt;!-- ``` --&gt;
-
-
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
@@ -544,6 +278,29 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>timer.knit</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+  <link href="data:text/css,%2Ecountdown%20%7Bbackground%3A%20inherit%3Bposition%3A%20absolute%3Bcursor%3A%20pointer%3Bfont%2Dsize%3A%203em%3Bline%2Dheight%3A%201%3Bborder%2Dcolor%3A%20%23ddd%3Bborder%2Dwidth%3A%203px%3Bborder%2Dstyle%3A%20solid%3Bborder%2Dradius%3A%2015px%3Bbox%2Dshadow%3A%200px%204px%2010px%200px%20rgba%2850%2C%2050%2C%2050%2C%200%2E4%29%3B%2Dwebkit%2Dbox%2Dshadow%3A%200px%204px%2010px%200px%20rgba%2850%2C%2050%2C%2050%2C%200%2E4%29%3Bmargin%3A%200%2E6em%3Bpadding%3A%2010px%2015px%3Btext%2Dalign%3A%20center%3B%7D%2Ecountdown%20%7Bdisplay%3A%20flex%3Balign%2Ditems%3A%20center%3Bjustify%2Dcontent%3A%20center%3B%7D%2Ecountdown%20%2Ecountdown%2Dtime%20%7Bbackground%3A%20none%3Bfont%2Dsize%3A%20100%25%3Bpadding%3A%200%3B%7D%2Ecountdown%2Ddigits%20%7Bcolor%3A%20inherit%3B%7D%2Ecountdown%2Erunning%20%7Bborder%2Dcolor%3A%20%233C9A5F%3Bbackground%2Dcolor%3A%20%2343AC6A%3B%7D%2Ecountdown%2Erunning%20%2Ecountdown%2Ddigits%20%7Bcolor%3A%20%23102B1A%3B%7D%2Ecountdown%2Efinished%20%7Bborder%2Dcolor%3A%20%23D83A20%3Bbackground%2Dcolor%3A%20%23F04124%3B%7D%2Ecountdown%2Efinished%20%2Ecountdown%2Ddigits%20%7Bcolor%3A%20%233C1009%3B%7D%2Ecountdown%2Erunning%2Ewarning%20%7Bborder%2Dcolor%3A%20%23CFAE24%3Bbackground%2Dcolor%3A%20%23E6C229%3B%7D%2Ecountdown%2Erunning%2Ewarning%20%2Ecountdown%2Ddigits%20%7Bcolor%3A%20%2339300A%3B%7D%40%2Dwebkit%2Dkeyframes%20blink%20%7Bfrom%20%7Bopacity%3A%201%7D50%25%20%7Bopacity%3A%200%2E1%7Dto%20%7Bopacity%3A%201%7D%7D%40keyframes%20blink%20%7Bfrom%20%7Bopacity%3A%201%7D50%25%20%7Bopacity%3A%200%2E1%7Dto%20%7Bopacity%3A%201%7D%7D%2Ecountdown%2Erunning%2Eblink%2Dcolon%20%2Ecountdown%2Ddigits%2Ecolon%20%7B%2Dwebkit%2Danimation%3A%20blink%202s%20steps%281%2C%20end%29%200s%20infinite%3Banimation%3A%20blink%202s%20steps%281%2C%20end%29%200s%20infinite%3B%7D" rel="stylesheet" />
+  <script src="data:application/javascript;base64,dmFyIGNvdW50ZXJzID0ge3RpbWVyOiB7fX07CnZhciB1cGRhdGVfdGltZXIgPSBmdW5jdGlvbih0aW1lciwgZm9yY2UgPSBmYWxzZSkgewoJdmFyIHNlY3MgPSB0aW1lci52YWx1ZTsKCgkvLyBjaGVjayBpZiB3ZSBzaG91bGQgdXBkYXRlIHRpbWVyIG9yIG5vdAoJbm91cCA9IHRpbWVyLmRpdi5jbGFzc05hbWUubWF0Y2goL25vdXBkYXRlLVxkKy8pOwoJaWYgKCFmb3JjZSAmJiBub3VwICE9IG51bGwpIHsKCSAgbm91cCA9IHBhcnNlSW50KG5vdXBbMF0ubWF0Y2goL1xkKyQvKSk7CgkgIGlmIChzZWNzID4gbm91cCAqIDIgJiYgc2VjcyAlIG5vdXAgPiAwKSB7IHJldHVybjsgfQoJfQoKCS8vIHNob3VsZCB3ZSBhcHBseSBvciByZW1vdmUgd2FybmluZyBjbGFzcz8KCXdhcm53aGVuID0gdGltZXIuZGl2LmRhdGFzZXQud2FybndoZW47CglpZiAod2FybndoZW4gJiYgd2FybndoZW4gPiAwKSB7CgkgIGlmIChzZWNzIDw9IHdhcm53aGVuICYmICF0aW1lci5kaXYuY2xhc3NMaXN0LmNvbnRhaW5zKCJ3YXJuaW5nIikpIHsKCSAgICB0aW1lci5kaXYuY2xhc3NMaXN0LmFkZCgid2FybmluZyIpOwoJICB9IGVsc2UgaWYgKHNlY3MgPiB3YXJud2hlbiAmJiB0aW1lci5kaXYuY2xhc3NMaXN0LmNvbnRhaW5zKCJ3YXJuaW5nIikpIHsKCSAgICB0aW1lci5kaXYuY2xhc3NMaXN0LnJlbW92ZSgid2FybmluZyIpOwoJICB9Cgl9CgogIHZhciBtaW5zID0gTWF0aC5mbG9vcihzZWNzIC8gNjApOyAvLyAxIG1pbiA9IDYwIHNlY3MKICBzZWNzIC09IG1pbnMgKiA2MDsKCiAgLy8gVXBkYXRlIEhUTUwKICB0aW1lci5taW4uaW5uZXJIVE1MID0gU3RyaW5nKG1pbnMpLnBhZFN0YXJ0KDIsIDApOwogIHRpbWVyLnNlYy5pbm5lckhUTUwgPSBTdHJpbmcoc2VjcykucGFkU3RhcnQoMiwgMCk7Cn0KdmFyIGNvdW50ZG93biA9IGZ1bmN0aW9uIChlKSB7CiAgdGFyZ2V0ID0gZS50YXJnZXQ7CiAgaWYgKHRhcmdldC5jbGFzc0xpc3QuY29udGFpbnMoImNvdW50ZG93bi1kaWdpdHMiKSkgewogICAgdGFyZ2V0ID0gdGFyZ2V0LnBhcmVudEVsZW1lbnQ7CiAgfQogIGlmICh0YXJnZXQudGFnTmFtZSA9PSAiQ09ERSIpIHsKICAgIHRhcmdldCA9IHRhcmdldC5wYXJlbnRFbGVtZW50OwogIH0KCiAgLy8gSW5pdCBjb3VudGVyCiAgaWYgKCFjb3VudGVycy50aW1lci5oYXNPd25Qcm9wZXJ0eSh0YXJnZXQuaWQpKSB7CiAgICBjb3VudGVycy50aW1lclt0YXJnZXQuaWRdID0ge307CiAgICAvLyBTZXQgdGhlIGNvbnRhaW5lcnMKCSAgY291bnRlcnMudGltZXJbdGFyZ2V0LmlkXS5taW4gPSB0YXJnZXQuZ2V0RWxlbWVudHNCeUNsYXNzTmFtZSgibWludXRlcyIpWzBdOwogIAljb3VudGVycy50aW1lclt0YXJnZXQuaWRdLnNlYyA9IHRhcmdldC5nZXRFbGVtZW50c0J5Q2xhc3NOYW1lKCJzZWNvbmRzIilbMF07CiAgCWNvdW50ZXJzLnRpbWVyW3RhcmdldC5pZF0uZGl2ID0gdGFyZ2V0OwogIH0KCiAgaWYgKCFjb3VudGVycy50aW1lclt0YXJnZXQuaWRdLnJ1bm5pbmcpIHsKICAgIGlmICghY291bnRlcnMudGltZXJbdGFyZ2V0LmlkXS5lbmQpIHsKICAgICAgY291bnRlcnMudGltZXJbdGFyZ2V0LmlkXS5lbmQgICA9IHBhcnNlSW50KGNvdW50ZXJzLnRpbWVyW3RhcmdldC5pZF0ubWluLmlubmVySFRNTCkgKiA2MDsKCQkgIGNvdW50ZXJzLnRpbWVyW3RhcmdldC5pZF0uZW5kICArPSBwYXJzZUludChjb3VudGVycy50aW1lclt0YXJnZXQuaWRdLnNlYy5pbm5lckhUTUwpOwogICAgfQoKICAgIGNvdW50ZXJzLnRpbWVyW3RhcmdldC5pZF0udmFsdWUgPSBjb3VudGVycy50aW1lclt0YXJnZXQuaWRdLmVuZDsKICAgIHVwZGF0ZV90aW1lcihjb3VudGVycy50aW1lclt0YXJnZXQuaWRdKTsKICAgIGlmIChjb3VudGVycy50aWNrZXIpIGNvdW50ZXJzLnRpbWVyW3RhcmdldC5pZF0udmFsdWUgKz0gMTsKCiAgICAvLyBTdGFydCBpZiBub3QgcGFzdCBlbmQgZGF0ZQogICAgaWYgKGNvdW50ZXJzLnRpbWVyW3RhcmdldC5pZF0udmFsdWUgPiAwKSB7CiAgICAgIGJhc2VfY2xhc3MgPSB0YXJnZXQuY2xhc3NOYW1lLnJlcGxhY2UoL1xzPyhydW5uaW5nfGZpbmlzaGVkKS8sICIiKQogICAgICB0YXJnZXQuY2xhc3NOYW1lID0gYmFzZV9jbGFzcyArICIgcnVubmluZyI7CiAgICAgIGNvdW50ZXJzLnRpbWVyW3RhcmdldC5pZF0ucnVubmluZyA9IHRydWU7CgogICAgICBpZiAoIWNvdW50ZXJzLnRpY2tlcikgewogICAgICAgIGNvdW50ZXJzLnRpY2tlciA9IHNldEludGVydmFsKGNvdW50ZXJfdXBkYXRlX2FsbCwgMTAwMCk7CiAgICAgIH0KICAgIH0KICB9IGVsc2UgewogICAgLy8gQnVtcCB0aW1lciB2YWx1ZSBpZiBydW5uaW5nICYgY2xpY2tlZAogICAgY291bnRlcnMudGltZXJbdGFyZ2V0LmlkXS52YWx1ZSArPSBjb3VudGVyX2J1bXBfaW5jcmVtZW50KGNvdW50ZXJzLnRpbWVyW3RhcmdldC5pZF0uZW5kKTsKICAgIHVwZGF0ZV90aW1lcihjb3VudGVycy50aW1lclt0YXJnZXQuaWRdLCBmb3JjZSA9IHRydWUpOwogICAgY291bnRlcnMudGltZXJbdGFyZ2V0LmlkXS52YWx1ZSArPSAxOwogIH0KfTsKCnZhciBjb3VudGVyX2J1bXBfaW5jcmVtZW50ID0gZnVuY3Rpb24odmFsKSB7CiAgaWYgKHZhbCA8PSAzMCkgewogICAgcmV0dXJuIDU7CiAgfSBlbHNlIGlmICh2YWwgPD0gMzAwKSB7CiAgICByZXR1cm4gMTU7CiAgfSBlbHNlIGlmICh2YWwgPD0gMzAwMCkgewogICAgcmV0dXJuIDMwOwogIH0gZWxzZSB7CiAgICByZXR1cm4gNjA7CiAgfQp9Cgp2YXIgY291bnRlcl91cGRhdGVfYWxsID0gZnVuY3Rpb24oKSB7CiAgLy8gSXRlcmF0ZSBvdmVyIGFsbCBydW5uaW5nIHRpbWVycwogIGZvciAodmFyIGkgaW4gY291bnRlcnMudGltZXIpIHsKICAgIC8vIFN0b3AgaWYgcGFzc2VkIGVuZCB0aW1lCiAgICBjb25zb2xlLmxvZyhjb3VudGVycy50aW1lcltpXS5pZCkKICAgIGNvdW50ZXJzLnRpbWVyW2ldLnZhbHVlLS07CiAgICBpZiAoY291bnRlcnMudGltZXJbaV0udmFsdWUgPD0gMCkgewogICAgICBjb3VudGVycy50aW1lcltpXS5taW4uaW5uZXJIVE1MID0gIjAwIjsKICAgICAgY291bnRlcnMudGltZXJbaV0uc2VjLmlubmVySFRNTCA9ICIwMCI7CiAgICAgIGNvdW50ZXJzLnRpbWVyW2ldLmRpdi5jbGFzc05hbWUgPSBjb3VudGVycy50aW1lcltpXS5kaXYuY2xhc3NOYW1lLnJlcGxhY2UoInJ1bm5pbmciLCAiZmluaXNoZWQiKTsKICAgICAgY291bnRlcnMudGltZXJbaV0ucnVubmluZyA9IGZhbHNlOwogICAgfSBlbHNlIHsKICAgICAgLy8gVXBkYXRlCiAgICAgIHVwZGF0ZV90aW1lcihjb3VudGVycy50aW1lcltpXSk7CgogICAgICAvLyBQbGF5IGNvdW50ZG93biBzb3VuZCBpZiBkYXRhLWF1ZGlvPXRydWUgb24gY29udGFpbmVyIGRpdgogICAgICBsZXQgYXVkaW8gPSBjb3VudGVycy50aW1lcltpXS5kaXYuZGF0YXNldC5hdWRpbwogICAgICBpZiAoYXVkaW8gJiYgY291bnRlcnMudGltZXJbaV0udmFsdWUgPT0gNSkgewogICAgICAgIGNvdW50ZXJfcGxheV9zb3VuZChhdWRpbyk7CiAgICAgIH0KICAgIH0KICB9CgogIC8vIElmIG5vIG1vcmUgcnVubmluZyB0aW1lcnMsIHRoZW4gY2xlYXIgdGlja2VyCiAgdmFyIHRpbWVySXNSdW5uaW5nID0gZmFsc2U7CiAgZm9yICh2YXIgdCBpbiBjb3VudGVycy50aW1lcikgewogICAgdGltZXJJc1J1bm5pbmcgPSB0aW1lcklzUnVubmluZyB8fCBjb3VudGVycy50aW1lclt0XS5ydW5uaW5nCiAgfQogIGlmICghdGltZXJJc1J1bm5pbmcpIHsKICAgIGNsZWFySW50ZXJ2YWwoY291bnRlcnMudGlja2VyKTsKICAgIGNvdW50ZXJzLnRpY2tlciA9IG51bGw7CiAgfQp9Cgp2YXIgY291bnRlcl9wbGF5X3NvdW5kID0gZnVuY3Rpb24odXJsKSB7CiAgaWYgKHR5cGVvZiB1cmwgPT09ICdib29sZWFuJykgewogICAgdXJsID0gJ2xpYnMvY291bnRkb3duL3NtYl9zdGFnZV9jbGVhci5tcDMnOwogIH0KICBzb3VuZCA9IG5ldyBBdWRpbyh1cmwpOwogIHNvdW5kLnBsYXkoKTsKfQoKdmFyIGNvdW50ZXJfYWRkRXZlbnRMaXN0ZW5lciA9IGZ1bmN0aW9uKCkgewogIGlmICghZG9jdW1lbnQuZ2V0RWxlbWVudHNCeUNsYXNzTmFtZSgiY291bnRkb3duIikubGVuZ3RoKSB7CiAgICBzZXRUaW1lb3V0KGNvdW50ZXJfYWRkRXZlbnRMaXN0ZW5lciwgMik7CiAgICByZXR1cm47CiAgfQogIHZhciBjb3VudGVyX2RpdnMgPSBkb2N1bWVudC5nZXRFbGVtZW50c0J5Q2xhc3NOYW1lKCJjb3VudGRvd24iKTsKICBjb25zb2xlLmxvZyhjb3VudGVyX2RpdnMpOwogIGZvciAodmFyIGkgPSAwOyBpIDwgY291bnRlcl9kaXZzLmxlbmd0aDsgaSsrKSB7CiAgICBjb3VudGVyX2RpdnNbaV0uYWRkRXZlbnRMaXN0ZW5lcigiY2xpY2siLCBjb3VudGRvd24sIGZhbHNlKTsKICB9Cn07Cgpjb3VudGVyX2FkZEV2ZW50TGlzdGVuZXIoKTsK"></script>
+</head>
+<body>
+<div class="countdown" id="timer_620cc2dd" style="right:0;bottom:0;position: relative; width: min-content;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">12</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</body>
+</html>
 
 <script>
 slideshow._releaseMath = function(el) {

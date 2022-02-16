@@ -12,7 +12,7 @@
   padding-bottom: 32px;
   background-color: white;
   color: #002A5C; /*UT blue*/
-  font-size: 18.5pt;  /*smallest try 18pt, largest try 26pt*/
+  font-size: 19pt;  /*smallest try 18pt, largest try 26pt*/
   font-weight: 200;
   line-height: 1.2;
   border-top: 5px solid #002A5C; 
@@ -214,6 +214,13 @@ this is meant to be used for (section) title page*/
   vertical-align: middle;
   text-shadow: none;
 }
+
+/*a {
+  background-color: white;
+  color: #002A5C;
+  padding: 1em 1.5em;
+  text-decoration: none;
+}*/
 
 
 /* H1 fonts  */

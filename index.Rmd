@@ -1,13 +1,11 @@
 ---
-title: "A Bayesian Latent Class Approach to Causal Inference with Longitudinal Data"
-subtitle: "SMAC 2021"
-author: "<br>Kuan Liu, PhD(c)<br> Dalla Lana School of Public Health<br> University of Toronto"
-date: "<br>June 15, 2021"
+title: "Bayesian Causal Inference with Longtitudinal Data"
+subtitle: "Kuan Liu"
+author: "PHS Faculty Meeting <br> Institute of Health Policy, Management and Evaluation<br>Dalla Lana School of Public Health"
+date: "<br>Feb 16, 2022"
 start: "0:0:0"
 output:
   xaringan::moon_reader:
-    includes:
-      in_header: "assets/mathjax-equation-numbers.html"
     css: ["default", "assets/utoronto_fonts.css", "assets/utoronto.css"]
     seal: true #disble to create your own title slide
     self_contained: false # if true, fonts will be stored locally
@@ -18,245 +16,147 @@ output:
       ratio: '4:3'
       navigation:
         scroll: true # false if wish to disable scrolling by mouth and use keyboard only
+    includes:
+      in_header: "assets/mathjax-equation-numbers.html"
+      after_body: timer.html
 ---
 class: left, left
 
-## Background 
-***
--  Causal inference from longitudinal data with limited sample size and a large number of time-dependent covariates is challenging
-
-<!--   -  convergence -->
-<!--   -  over-fitting -->
-<!--   -  sensitive to sample and model changes -->
-  
---
-
--  Existing Bayesian causal methods such as Bayesian MSM and Bayesian PSA are not full Bayesian
-
--  Parametric Bayesian g-computation
-    -  requires specification of covariates distribution
-    -  can be computationally intractable
-  
---
-
--  We proposed a Bayesian latent class approach that
-    -  features **dimension reduction of covariates**
-    -  a **full** Bayesian approach
-  
----
-
-##  Longtiduinal DAG
-***
-![Longitudinal DAG](assets/dag.PNG)
-
-> -  The indicators (previous measured covariates) are considered as manifestations from the time-dependent latent classes
--  The latent classes, not the indictors, directly affect treatment assignment and outcome
-
----
-
-## Proposed Bayesian Latent Class Approach
-***
--  The likelihood of the observed data
-
-\begin{align}
-   & \prod_{i=1}^n \sum_{U_{ik}}^M \ldots\sum_{U_{i1}=1}^M P(Y_i | \bar{Z}_i, \bar{U}_{i} = \bar{u}_{k}, \theta) \prod_{j=1}^{k}  \Big[ P(Z_{ij} | \bar{Z}_{ij-1}, \bar{U}_{ij} = \bar{u}_{j}, \gamma_j ) \nonumber \\
-    & \times   P(U_{ij}=u_j | \bar{U}_{ij-1}=\bar{u}_{j-1},\bar{Z}_{ij-1}, \alpha_j )P(X_{ij} | U_{ij}=u_j, \beta_j) \Big] \nonumber
-\end{align}
-
-  -  $n$ subjects, $k$ visits and $M$ number of latent classes
-  -  $\alpha$, $\beta$, $\gamma$ and $\theta$ are model parameters
-  -  $P(X_{ij} | U_{ij}=u_j, \beta_j) = \prod_{l=1}^{p} P( X_{ijl} | U_{ij} , \beta_{jl})$, .red[indicator model]
-
-
-- Estimate $E[Y_i^{ \bar{a}}]$ using <span style="color: red;">Bayesian posterior predictive inference</span>
-
-
----
-
-class: ut-pantone_lime
-
-# Simulation Study
-.font110[
-1. Simulation data feature latent classes
-
-2. Simulation data do not feature latent classes (misspecification)
-]
-
----
-
-## Simulated DAGs
-***
-.pull-left[
-
-<br/><br/>
-<br/><br/>
-
-<img src="assets/dagsim1.PNG" alt="drawing1" width="400"/>
-.font85[DAG1 with latent confounder class]
-]
-.pull-right[
-<img src="assets/dagsim2.PNG" alt="drawing2" width="400"/>
-.font85[DAG2 without latent confounder class for the outcome model]
-
-<img src="assets/dagsim3.PNG" alt="drawing3" width="400"/>
-.font85[DAG3 without latent confounder class for the outcome and treatment model]
-]
-
----
-
-## Simulation Results (DAG1)
-***
-Simulation results for $E[Y^{(1,1)}] − E[Y^{(0,0)}]$ over 1000 replications with 500 samples and misspecified outcome model
-
-```{r echo=F, include=T, tidy=TRUE, warning=FALSE}
-library(kableExtra)
-options(knitr.kable.NA = '')
-
-simtab1<-read.csv("assets/simtab1.csv", header = T)
-colnames(simtab1)[1]<-"Indicators (H, M, L)"
-
-kbl(simtab1) %>%
-  kable_paper("striped", full_width = F) %>%
-  row_spec(c(2,3,6,7), bold=T,color = "black", background = "#DAF7A6") %>%
-  row_spec(c(4,8), color = "red", background="white") %>%
-  row_spec(c(9),  background="#FFFD33") %>%
-  kable_classic(full_width = T,position = "center")%>%
-  scroll_box(height = "300px")
-
+```{r style-share-again, echo=FALSE}
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin")
+)
 ```
 
-.font85[
-- **High quality** (H): binary indicator with a probability of 0.9 in a given class
-- **Medium quality** (M): binary indicator with a probability of 0.75 in a given class
-- **Low quality** (L): binary indicator with a probability of 0.6 in a given class]
+---
+class: center, middle
+## `r emo::ji("star")` About me `r emo::ji("star")`
+***
+I am an Assistant Professor in .blue[Health Services Research (outcomes and evaluation method emphasis)] at IHPME. 
+
+--
+
+I also hold a cross-appointment at the .blue[Division of Biostatistics].
+
+--
+
+My areas of methodological interest include .red[causal inference], .blue[Bayesian statistics], .green[longitudinal data analysis], .orange[bias analysis], and .black[semi-parametric/parametric joint modelling].
+
+--
+
+My current research focuses on .bold[.orange[Applied Bayesian statistics]] and .bold[.orange[causal inference with longitudinal data]].
+
+
+--
+
+Besides academic work and creating fun data visualizations in R `r emo::ji("smile")`. I love watercolour painting `r emo::ji("paint")`, taking contemporary dance classes in TOronto `r emo::ji("dancing")`, and playing 'piano' `r emo::ji("piano")`.
 
 ---
 
-## Simulation Results (DAG2)
-***
-Simulation results for $E[Y^{(1,1)}] − E[Y^{(0,0)}]$ over 1000 replications with 500 samples and medium level latent class confounding.
+class: ut-pantone_yellow
 
-```{r echo=F, include=T, tidy=TRUE}
-options(knitr.kable.NA = '')
-
-simtab2<-read.csv("assets/simtab2.csv", header = T)
-colnames(simtab2)[1]<-"Indicators (H, M, L)"
-
-kbl(simtab2) %>%
-  kable_paper("striped", full_width = F) %>%
-  row_spec(c(2,6), bold=T,color = "black", background = "#DAF7A6") %>%
-  row_spec(c(4,8), color = "red", background = "white" ) %>%
-  kable_classic(full_width = T,position = "center")%>%
-  scroll_box(height = "300px")
-
-```
-
--  Good performance under misspecified outcome model
-
-
+# **on Bayesian Causal Inference with Longitudinal Data**
 
 ---
 
-## Quick Summary
+##  Background
 ***
 
--  Bayesian latent class approach performs well when
-    1.  data contain at least one _**high quality indicator**_
-    2.  true causal structure features _**latent classes**_
+- .bold[.blue[Longitudinal observational studies]] enable timely assessment of exposure effects and are invaluable when randomized experiments are deemed infeasible.
 
 
--  Bayesian latent class approach can still perform well under
-misspecification
-
--  In our simulation, we assume the number of latent classes are known
+- .blue[Longitudinal statistical causal inference methods] are required to gather evidence such design and data
 
 
+--
+
+- Many of the existing causal inference frameworks and methods for time-varying exposures were developed under the .bold[.orange[frequentist domain]]. 
+
+- Bayesian causal methods to handle longitudinal data have received little attention in the statistical literature `r emo::ji("shrug")`
 
 ---
 
-## Application - The Sickkids JDM Study
-***
--  <span style="color: orange;">Study objective</span>: investigating the efficacy of IVIg in treating new onset JDM
+## Are you Bayesian yet?
 
--  <span style="color: orange;">Study outcome</span>: Achieving a zero Child Health Assessment
-Questionnaire (CHAQ) score at 18-month (0= Daily living
-without any difficulty, 3= Unable to perform daily activity)
+.bold[.blue[Bayesian causal inference methods]] can be .bold[.blue[preferable]], they allow
 
--  <span style="color: orange;">Treatment</span>: exposure to IVIg within 6 months of each
-follow-up visits
+- `r emo::ji("check")` propagation of estimation uncertainty,
 
-- <span style="color: orange;">Clinical indicators</span>
-  1.  present functional status (normal versus abnormal)
-  2.  currently taking prednisone (yes versus no)
-  3.  presence of Gottron’s papules
-  4.  presence of heliotrope rash
-  5.  presence of abnormal nailfold capillaries
-
-
----
-## JDM Analysis
-***
-- Average potential outcomes
-  1.  <span style="color: red;">"Always treated"</span>: Probability of achieving normal daily activity at 18-month among patients who were exposed to IVIG and remained on IVIG prior to the 18-month follow-up visit
-  2.  <span style="color: red;">"Never treated"</span>: Probability of achieving normal daily activity at 18-month among patients who were IVIG free within 18 months
-
--  We used WAIC to determine the number of latent confounder classes
-
--  Vague uniform priors
-
----
-
-## JDM Results
-***
-.left-column[
-
-<br/>
-
-A 70% chance of observing a higher probability of achieving normal daily activity under ’always treated’.
-<span style="color: orange;">(evidence of efficacy)</span>
-
-]
-
-.right-column[
-<img src="assets/Rplot_posterior_jdm_feb16.jpeg" alt="post" width="550"/>
-<span style="color: white;">skip</span> Figure 1: Posterior predictive distribution of the <span style="color: white;">skip</span> estimated risk difference on study outcome
-]
-
----
-
-# Future Direction
-***
- - Bayesian latent class methods for causal inference
-  -  unknown number of latent classes
-  -  more generalized causal mechanisms
-  -  frame with a continuous latent variable
-
-
-
-## Closing thoughts `r emo::ji("cheers")`
+- `r emo::ji("check")` provide decision-theoretic probabilistic summaries, 
+    - [many issues with P-value](https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108)
+    - interpretable posterior (predictive) probability summary
     
-- why Bayesian?
-    - Bayesian causal inference is useful in clinical research
-      - choice of prior
-      - probability summary
-      - "hidden" advantage: missing data, variable selection etc.
-- Make it robust?
-    - non-parametric Bayesian
+    > P(extreme data | null effect) vs P(causal effect | data)
+    
+   <!-- $$P(\text{extreme data} \mid \text{null effect}) \text{ vs } P( \text{causal effect} \mid data)$$ -->
+
+- `r emo::ji("check")` easily incorporate informative priors to use past evidence and external information.
+
 ---
 
-# Acknowledgements
+## Past Work
+***
+
+.bold[.blue[Repeatedly measured outcome ]]
+
+- I extended .red[Bayesian propensity score analysis] and .red[Bayesian marginal structural models] to estimate a time-varying exposure with a repeatedly measured outcome. (Liu et al, 2020)
+
+- Prior to this work, no existing Bayesian causal methods could handle a repeatedly measured outcome.
+
+--
+
+.bold[.blue[Latent confounding classes]]
+
+- I developed an innovative .red[Bayesian latent class approach] to causal estimation with longitudinal data.  (Liu et al, 2022)
+
+- This approach simplifies the specification of the time-dependent confounding distribution, and can overcome unmeasured confounding. 
+
+
+---
+
+##  Future Directions
+***
+
+.bold[.blue[Bayesian causal estimation with latent confounding]]
+
+![Longitudinal DAG with unmeasured confounding](assets/latent_dag.PNG)
+
+- Develop a Bayesian sensitivity analysis for longitudinal data
+- Extensions to the Bayesian latent class approach 
+
+---
+
+##  Future Directions
+***
+.bold[.blue[Bayesian causal modelling with variable selection]]
+
+- develop extensions to Bayesian variable selection techniques (Bayesian LASSO and spike-and-slab priors)
+
+.bold[.blue[Bayesian causal modelling with multiple outcomes]]
+
+- Propose a Bayesian causal joint model of **longitudinal and survival outcomes** with shared parameters to quantify the correlation between outcomes
+
+
+> The **long-term goal** of my research program is .red[to improve] the use of Bayesian causal methods in the design and analysis of observational studies.
+
+---
+
+# Collaborators `r emo::ji("cheers")`
 ***
 .pull-left[
-- Supervisory committee
-    - Eleanor Pullenayegum
-    - Olli Saarela
-    - George Tomlinson
-    
-- JDM Sickkids research team
-    - Brian Feldman
-    - Ingrid Goh
+- Eleanor Pullenayegum
+- Olli Saarela
+- George Tomlinson
+- Brian Feldman 
+- Linda Hiraki
+- Deborah Levy
+- Amanda Ricciuto
+- Suzanne Cadarette 
+- Geoff Anderson
+- Aya Mitani
+- Hailey Banack
+- and more!
 
--  PhD research is supported by the Canadian Institutes of Health Research, Doctoral Research Award GSD-152386
 ]
 
 .pull-right[
@@ -268,27 +168,4 @@ A 70% chance of observing a higher probability of achieving normal daily activit
 <img src="assets/cihr.jpg" alt="cihr" width="300"/>
 
 ]
-
-<!-- --- -->
-<!-- ## Testing - yes I can make tikz! -->
-
-<!-- ```{tikz, tikz-ex, fig.cap = "Funky tikz", fig.ext = 'png', cache=TRUE, echo=FALSE} -->
-<!-- \usetikzlibrary{arrows} -->
-<!-- \begin{tikzpicture}[node distance=2cm, auto,>=latex', thick, scale = 0.5] -->
-<!-- \node (P) {$P$}; -->
-<!-- \node (B) [right of=P] {$B$}; -->
-<!-- \node (A) [below of=P] {$A$}; -->
-<!-- \node (C) [below of=B] {$C$}; -->
-<!-- \node (P1) [node distance=1.4cm, left of=P, above of=P] {$\hat{P}$}; -->
-<!-- \draw[->] (P) to node {$f$} (B); -->
-<!-- \draw[->] (P) to node [swap] {$g$} (A); -->
-<!-- \draw[->] (A) to node [swap] {$f$} (C); -->
-<!-- \draw[->] (B) to node {$g$} (C); -->
-<!-- \draw[->, bend right] (P1) to node [swap] {$\hat{g}$} (A); -->
-<!-- \draw[->, bend left] (P1) to node {$\hat{f}$} (B); -->
-<!-- \draw[->, dashed] (P1) to node {$k$} (P); -->
-<!-- \end{tikzpicture} -->
-<!-- ``` -->
-
-
 

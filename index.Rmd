@@ -44,7 +44,7 @@ My areas of methodological interest include .red[causal inference], .blue[Bayesi
 
 --
 
-My current research focuses on .bold[.orange[Applied Bayesian statistics]] and .bold[.orange[causal inference with longitudinal data]].
+My current research focuses on .bold[.orange[applied Bayesian statistics]] and .bold[.orange[causal inference with longitudinal data]].
 
 
 --
@@ -134,7 +134,7 @@ class: ut-pantone_yellow
 
 .bold[.blue[Bayesian causal modelling with multiple outcomes]]
 
-- Propose a Bayesian causal joint model of **longitudinal and survival outcomes** with shared parameters to quantify the correlation between outcomes
+- propose a Bayesian causal joint model of **longitudinal and survival outcomes** with shared parameters to quantify the correlation between outcomes
 
 
 > The **long-term goal** of my research program is .red[to improve] the use of Bayesian causal methods in the design and analysis of observational studies.

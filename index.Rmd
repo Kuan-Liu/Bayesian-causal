@@ -53,7 +53,7 @@ My current research focuses on .bold[.orange[applied Bayesian statistics]] and .
 
 --
 
-Besides academic work and creating fun data visualizations in R `r emo::ji("smile")`. I love watercolour painting `r emo::ji("paint")`, taking contemporary dance classes in TOronto `r emo::ji("dancing")`, and playing 'piano' `r emo::ji("piano")`.
+Besides academic work and creating visualizations in R, I love painting `r emo::ji("paint")`, taking dance classes `r emo::ji("dancing")`, and playing piano `r emo::ji("piano")`.
 
 ---
 
